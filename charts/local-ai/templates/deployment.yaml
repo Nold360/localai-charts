@@ -184,6 +184,8 @@ spec:
             {{- toYaml .Values.deployment.secretEnv | nindent 12 }}
           {{- end}}
           volumeMounts:
+            - mountPath: /dev/shm
+              name: dshm
             {{- range $key, $pvc := $rootPersistence}}
               {{- if $pvc.enabled }}
             - name: {{ $key }}
@@ -192,6 +194,9 @@ spec:
             {{- end }}
       {{- if $rootPersistence}}
       volumes:
+        - name: dshm
+          emptyDir:
+            medium: Memory
         {{- range $key, $pvc := $rootPersistence}}
           {{- if $pvc.enabled }}
         - name: {{ $key }}
