@@ -1,31 +1,31 @@
 replicaCount: 1
 
 # Pod-level securityContext, applied to spec.template.spec.securityContext.
-# Override to fit your cluster's Pod Security Standards (e.g. restricted).
-podSecurityContext:
-  fsGroup: 1000
-  runAsNonRoot: true
-  runAsUser: 1000
-  runAsGroup: 1000
-  seccompProfile:
-    type: RuntimeDefault
+# Uncomment to enable; override to fit your cluster's Pod Security Standards (e.g. restricted).
+# podSecurityContext:
+#   fsGroup: 1000
+#   runAsNonRoot: true
+#   runAsUser: 1000
+#   runAsGroup: 1000
+#   seccompProfile:
+#     type: RuntimeDefault
 
 # Default container-level securityContext, applied to every generated container
 # (main container, and the prompt-templates/model-configs init containers).
-# Custom initContainers and sidecarContainers may override via their own
-# `securityContext` value.
-securityContext:
-  allowPrivilegeEscalation: false
-  privileged: false
-  readOnlyRootFilesystem: false
-  runAsNonRoot: true
-  runAsUser: 1000
-  runAsGroup: 1000
-  capabilities:
-    drop:
-      - ALL
-  seccompProfile:
-    type: RuntimeDefault
+# Uncomment to enable. Custom initContainers and sidecarContainers may override
+# via their own `securityContext` value.
+# securityContext:
+#   allowPrivilegeEscalation: false
+#   privileged: false
+#   readOnlyRootFilesystem: false
+#   runAsNonRoot: true
+#   runAsUser: 1000
+#   runAsGroup: 1000
+#   capabilities:
+#     drop:
+#       - ALL
+#   seccompProfile:
+#     type: RuntimeDefault
 
 deployment:
   image:
