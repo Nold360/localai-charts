@@ -1,0 +1,22 @@
+---
+# Source: local-ai/templates/servicemonitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: localai-local-ai
+  labels:
+    helm.sh/chart: local-ai-3.4.2
+    app.kubernetes.io/name: local-ai
+    app.kubernetes.io/instance: "localai"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "2.23"
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: local-ai
+  endpoints:
+    - port: http
+      path: /metrics
+  namespaceSelector:
+    matchNames:
+      - ai
