@@ -32,6 +32,10 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       initContainers:
         # Additional initContainers from values.yaml
         {{- if .Values.initContainers }}
@@ -91,6 +95,10 @@ spec:
               mountPath: {{ $pvc.globalMount | default (print "/" $key) }}
               {{- end }}
             {{- end }}
+        {{- if .Values.securityContext }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+        {{- end }}
         {{- end }}
         {{- if .Values.modelsConfigs }}
         - name: models-configs
@@ -116,6 +124,10 @@ spec:
               mountPath: {{ $pvc.globalMount | default (print "/" $key) }}
               {{- end }}
             {{- end }}
+        {{- if .Values.securityContext }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+        {{- end }}
         {{- end }}
       containers:
         # Sidecar containers from values.yaml
@@ -192,6 +204,10 @@ spec:
               mountPath: {{ $pvc.globalMount | default (print "/" $key) }}
               {{- end }}
             {{- end }}
+          {{- if .Values.securityContext }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- end }}
       {{- if $rootPersistence}}
       volumes:
         - name: dshm
